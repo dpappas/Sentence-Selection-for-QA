@@ -5,17 +5,15 @@ import nltk, gensim, BM25, itertools, pickle
 class Word2Vec():
     def __init__(self):
         self.model = gensim.models.KeyedVectors.load_word2vec_format('./Embeddings/embeddings.bin', binary=True)
-
         # Create a random vector, in case we cannot find the word embedding in our pre-trained embeddings
-        self.unknowns = np.random.uniform(-0.01, 0.01, 200).astype("float32")
-
+        self.emb_size = self.model.wv.vectors[0].shape[0]
+        self.unknowns = np.random.uniform(-0.01, 0.01, self.emb_size).astype("float32")
     # Get the embedding vector for a specific word
     def get(self, word):
         if word not in self.model.vocab:
             return self.unknowns
         else:
             return self.model.word_vec(word)
-
 
 class Data():
     #initialize basic variables
@@ -86,8 +84,9 @@ class BioASQ(Data):
             idf_scores = pickle.load(f)
         with open('BM25_files/df.pkl', 'rb') as f:
             df_scores = pickle.load(f)
+            # df_scores = dict([(item[0], 1.0/item[1]) for item in idf_scores.items()])
+            # pickle.dump(df_scores, open('BM25_files/df.pkl', 'wb'), protocol=2)
         return df_scores, idf_scores
-
     # Load BioASQ dataset
     def load_dataset(self, dataset):
         qids, questions, answers, labels = [], [], [], []
@@ -152,7 +151,7 @@ class BioASQ(Data):
                 answer = items[2].lower().split()
                 documents.append(answer)
         avgdl = BM25.compute_avgdl(documents)
-
+        ############################################################
         documents = []
         with open("./BioASQ_Corpus/BioASQ-train.txt", "r", encoding="utf-8") as f:
             for line1, line2 in itertools.zip_longest(*[f] * 2):
@@ -160,19 +159,19 @@ class BioASQ(Data):
                 answer = items[2].lower().split()
                 documents.append(answer)
         train_avgdl = BM25.compute_avgdl(documents)
-
+        ####################################################
         # Compute mean and deviation for Z-score normalization
         maxim = max(idf_scores.keys(), key=(lambda i: idf_scores[i]))
         rare_word_value = idf_scores[maxim]
         mean, deviation = BM25.compute_Zscore_values("./BioASQ_Corpus/BioASQ-train.txt", idf_scores, train_avgdl, 1.2, 0.75, rare_word_value)
-
-        print("mean", mean)
-        print("deviation", deviation)
-
+        ####################################################
+        print("mean", mean)             # 3.1267493162888687
+        print("deviation", deviation)   # 3.6702556380527525
+        ####################################################
         with open("./BioASQ_Corpus/BioASQ-" + mode + ".txt", "r", encoding="utf-8") as f:
             # We retrieve the stopwords of the english language from the nltk library
             stopwords = nltk.corpus.stopwords.words("english")
-
+            ####################################################
             if ((mode == 'test') or (mode == 'dev')):
                 for line in f:
                     items = line[:-1].split("\t")
@@ -180,27 +179,27 @@ class BioASQ(Data):
                     # truncate answers to 40 tokens.
                     s2 = items[2].lower().split()[:40]
                     label = int(0)
-
+                    ####################################################
                     qid = items[0]
                     old_question = items[3]
                     old_answer = items[4]
                     start = items[5]
                     end = items[6]
                     did = items[7]
-
+                    ####################################################
                     self.s1s.append(s1)
                     self.s2s.append(s2)
                     self.labels.append(label)
-
+                    ####################################################
                     self.qid.append(qid)
                     self.old_question.append(old_question)
                     self.old_answer.append(old_answer)
                     self.start.append(start)
                     self.end.append(end)
                     self.did.append(did)
-
+                    ####################################################
                     BM25score = BM25.similarity_score(s1, s2, 1.2, 0.75, idf_scores, avgdl, True, mean, deviation, rare_word_value)
-
+                    ####################################################
                     q_idfs = []
                     for token in s1:
                         try:
@@ -208,11 +207,8 @@ class BioASQ(Data):
                         except:
                             q_idfs.append(1)
                     unigram_overlap, bigram_overlap, idf_uni_overlap = self.compute_Overlaps(s1, s2, q_idfs)
-
                     word_cnt = len([word for word in s1 if (word not in stopwords) and (word in s2)])
-
                     self.features.append([len(s1), len(s2), word_cnt, BM25score, unigram_overlap, bigram_overlap, idf_uni_overlap])
-
                     local_max_len = max(len(s1), len(s2))
                     if local_max_len > self.max_len:
                         self.max_len = local_max_len
@@ -224,13 +220,10 @@ class BioASQ(Data):
                     # truncate answers to 40 tokens.
                     s2 = items[2].lower().split()[:40]
                     label = int(items[3])
-
                     self.s1s.append(s1)
                     self.s2s.append(s2)
                     self.labels.append(label)
-
                     word_cnt = len([word for word in s1 if (word not in stopwords) and (word in s2)])
-
                     BM25score = BM25.similarity_score(s1, s2, 1.2, 0.75, idf_scores, avgdl, True, mean, deviation, rare_word_value)
                     q_idfs = []
                     for token in s1:
