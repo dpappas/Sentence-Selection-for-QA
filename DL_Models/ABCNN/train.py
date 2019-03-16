@@ -117,7 +117,6 @@ def train(lr, w, l2_reg, epoch, batch_size, model_type, num_layers, data_type, w
         print("=" * 50)
 
 if __name__ == "__main__":
-
     # Paramters
     # --lr: learning rate
     # --ws: window_size
@@ -133,28 +132,30 @@ if __name__ == "__main__":
         "lr": 0.08,
         "ws": 4,
         "l2_reg": 0.0004,
-        "epoch": 3,
+        "epoch": 50,
         "batch_size": 200,
         "model_type": "BCNN",
         "num_layers": 2,
         "data_type": "BioASQ",
         "word2vec": Word2Vec()
     }
-
+    ################################
     print("=" * 50)
     print("Parameters:")
     for k in sorted(params.keys()):
         print(k, ":", params[k])
-
+    ################################
     if len(sys.argv) > 1:
         for arg in sys.argv[1:]:
             k = arg.split("=")[0][2:]
             v = arg.split("=")[1]
             params[k] = v
-
+    ################################
     # Call train function to train our model
-    train(lr=float(params["lr"]), w=int(params["ws"]), l2_reg=float(params["l2_reg"]), epoch=int(params["epoch"]),
-          batch_size=int(params["batch_size"]), model_type=params["model_type"], num_layers=int(params["num_layers"]),
-          data_type=params["data_type"], word2vec=params["word2vec"])
+    train(
+        lr=float(params["lr"]), w=int(params["ws"]), l2_reg=float(params["l2_reg"]), epoch=int(params["epoch"]),
+        batch_size=int(params["batch_size"]), model_type=params["model_type"], num_layers=int(params["num_layers"]),
+        data_type=params["data_type"], word2vec=params["word2vec"]
+    )
 
 # CUDA_VISIBLE_DEVICES=-1 python3.6 train.py
