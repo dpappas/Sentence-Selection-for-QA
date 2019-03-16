@@ -41,8 +41,10 @@ def train(lr, w, l2_reg, epoch, batch_size, model_type, num_layers, data_type, w
     print("training max len:", train_data.max_len)
     print("=" * 50)
 
-    model = ABCNN(s=train_data.max_len, w=w, l2_reg=l2_reg, model_type=model_type,
-                  num_features=train_data.num_features, num_classes=num_classes, num_layers=num_layers)
+    model = ABCNN(
+        s=train_data.max_len, w=w, l2_reg=l2_reg, model_type=model_type, d0=30,
+        num_features=train_data.num_features, num_classes=num_classes, num_layers=num_layers
+    )
 
     # We use Adagrad optimizer for our train process
     optimizer = tf.train.AdagradOptimizer(lr, name="optimizer").minimize(model.cost)
@@ -113,7 +115,6 @@ def train(lr, w, l2_reg, epoch, batch_size, model_type, num_layers, data_type, w
         # When the loop ends, our model was trained with success!!!
         print("training finished!")
         print("=" * 50)
-
 
 if __name__ == "__main__":
 

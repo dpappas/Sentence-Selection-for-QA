@@ -22,60 +22,55 @@ class Data():
         self.s1s, self.s2s, self.labels, self.features = [], [], [], []
         self.qid, self.old_answer, self.old_question, self.start, self.end, self.did = [], [], [], [], [], []
         self.index, self.max_len, self.word2vec = 0, max_len, word2vec
-
+    ###################################################
     # open specific file
     def open_file(self):
         pass
-
+    ###################################################
     # Check if we have available data
     def is_available(self):
         if self.index < self.data_size:
             return True
         else:
             return False
-
+    ###################################################
     # Reset index to zero (0)
     def reset_index(self):
         self.index = 0
-
+    ###################################################
     def next(self):
         if (self.is_available()):
             self.index += 1
             return self.data[self.index - 1]
         else:
             return
-
+    ###################################################
     # Retrieve next batch
     def next_batch(self, batch_size):
         batch_size = min(self.data_size - self.index, batch_size)
         s1_mats, s2_mats = [], []
-
+        ###################################################
         for i in range(batch_size):
             s1 = self.s1s[self.index + i]
             s2 = self.s2s[self.index + i]
-
             # [1, d0, s]
             s1_mats.append(np.expand_dims(np.pad(np.column_stack([self.word2vec.get(w) for w in s1]),
                                                  [[0, 0], [0, self.max_len - len(s1)]],
                                                  "constant"), axis=0))
-
             s2_mats.append(np.expand_dims(np.pad(np.column_stack([self.word2vec.get(w) for w in s2]),
                                                  [[0, 0], [0, self.max_len - len(s2)]],
                                                  "constant"), axis=0))
-
+        ###################################################
         # [batch_size, d0, s]
         batch_s1s = np.concatenate(s1_mats, axis=0)
         batch_s2s = np.concatenate(s2_mats, axis=0)
         batch_labels = self.labels[self.index:self.index + batch_size]
         batch_features = self.features[self.index:self.index + batch_size]
-
         self.index += batch_size
-
         return batch_s1s, batch_s2s, batch_labels, batch_features
-
+    ###################################################
     def getMoreInfo(self):
         return self.qid, self.old_question, self.old_answer, self.start, self.end, self.did
-
 
 class BioASQ(Data):
     # Load df and idf scores
@@ -100,13 +95,12 @@ class BioASQ(Data):
                 questions.append(question)
                 answers.append(answer)
         return qids, questions, answers, labels
-
+    ###################################################
     def compute_Overlaps(self, q_tokens, d_tokens, q_idf):
         # Map term to idf before set() change the term order
         q_terms_idf = {}
         for i in range(len(q_tokens)):
             q_terms_idf[q_tokens[i]] = q_idf[i]
-
         # Query Uni and Bi gram sets
         query_uni_set = set()
         query_bi_set = set()
@@ -114,7 +108,6 @@ class BioASQ(Data):
             query_uni_set.add(q_tokens[i])
             query_bi_set.add((q_tokens[i], q_tokens[i + 1]))
         query_uni_set.add(q_tokens[-1])
-
         # Doc Uni and Bi gram sets
         doc_uni_set = set()
         doc_bi_set = set()
@@ -122,7 +115,7 @@ class BioASQ(Data):
             doc_uni_set.add(d_tokens[i])
             doc_bi_set.add((d_tokens[i], d_tokens[i + 1]))
         doc_uni_set.add(d_tokens[-1])
-
+        ###################################################
         unigram_overlap = 0
         idf_uni_overlap = 0
         idf_uni_sum = 0
@@ -133,15 +126,15 @@ class BioASQ(Data):
             idf_uni_sum += q_terms_idf[ug]
         unigram_overlap /= len(query_uni_set)
         idf_uni_overlap /= idf_uni_sum
-
+        ###################################################
         bigram_overlap = 0
         for bg in query_bi_set:
             if bg in doc_bi_set:
                 bigram_overlap += 1
         bigram_overlap /= len(query_bi_set)
-
+        ###################################################
         return unigram_overlap, bigram_overlap, idf_uni_overlap
-
+    ###################################################
     def open_file(self, mode):
         df_scores, idf_scores = self.load_idf_scores()
         documents = []
@@ -232,14 +225,14 @@ class BioASQ(Data):
                         except:
                             q_idfs.append(1)
                     unigram_overlap, bigram_overlap, idf_uni_overlap = self.compute_Overlaps(s1, s2, q_idfs)
-
+                    ###################################################
                     self.features.append([len(s1), len(s2), word_cnt, BM25score, unigram_overlap, bigram_overlap, idf_uni_overlap])
-
+                    ###################################################
                     # Get the maximum length of a sentence, while reading the train/test file
                     local_max_len = max(len(s1), len(s2))
                     if local_max_len > self.max_len:
                         self.max_len = local_max_len
-
+        ###################################################
         self.data_size = len(self.s1s)
         flatten = lambda l: [item for sublist in l for item in sublist]
         q_vocab = list(set(flatten(self.s1s)))
