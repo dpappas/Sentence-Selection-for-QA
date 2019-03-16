@@ -156,3 +156,5 @@ if __name__ == "__main__":
     train(lr=float(params["lr"]), w=int(params["ws"]), l2_reg=float(params["l2_reg"]), epoch=int(params["epoch"]),
           batch_size=int(params["batch_size"]), model_type=params["model_type"], num_layers=int(params["num_layers"]),
           data_type=params["data_type"], word2vec=params["word2vec"])
+
+# CUDA_VISIBLE_DEVICES=-1 python3.6 train.py
