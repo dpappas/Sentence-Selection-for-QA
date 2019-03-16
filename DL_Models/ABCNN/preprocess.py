@@ -76,11 +76,8 @@ class BioASQ(Data):
     # Load df and idf scores
     def load_idf_scores(self):
         with open('BM25_files/idf.pkl', 'rb') as f:
-            idf_scores = pickle.load(f)
-        with open('BM25_files/df.pkl', 'rb') as f:
-            df_scores = pickle.load(f)
-            # df_scores = dict([(item[0], 1.0/item[1]) for item in idf_scores.items()])
-            # pickle.dump(df_scores, open('BM25_files/df.pkl', 'wb'), protocol=2)
+            idf_scores  = pickle.load(f)
+            df_scores   = dict([(item[0], 1.0/item[1]) for item in idf_scores.items()])
         return df_scores, idf_scores
     # Load BioASQ dataset
     def load_dataset(self, dataset):
