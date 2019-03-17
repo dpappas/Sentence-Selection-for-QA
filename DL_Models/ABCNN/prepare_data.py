@@ -2,6 +2,7 @@
 import json, os, pickle, re, random
 from pprint import pprint
 from    nltk.tokenize import sent_tokenize
+from tqdm import tqdm
 
 def get_gold_snips(quest_id, bioasq6_data):
     gold_snips = []
@@ -46,14 +47,15 @@ with open(os.path.join(dataloc, 'bioasq7_bm25_docset_top100.train.pkl'), 'rb') a
 # dev
 # 55242d512c8b63434a000006        quest_text      sentence  index_from   index_to     pubmed_id
 
-for quer in train_data['queries']:
+train_extracted_data = []
+for quer in tqdm(train_data['queries']):
     rel_docs            = [rd for rd in quer['relevant_documents'] if(rd in train_docs)]
     query_id            = quer['query_id']
     query_text          = ' '.join(bioclean(quer['query_text']))
     snips               = [sn['text'] for sn in bioasq6_data[query_id]['snippets'] if(sn['document'].split('/')[-1].strip() in rel_docs)]
     good_snips          = [' '.join(bioclean(sn)) for sn in snips]
     all_rel, all_irel   = [], []
-    for rel_doc in rel_docs:
+    for rel_doc in tqdm(rel_docs):
         the_doc         = train_docs[rel_doc]
         sents           = sent_tokenize(the_doc['title']) + sent_tokenize(the_doc['abstractText'])
         doc_rel_snips   = []
@@ -66,13 +68,26 @@ for quer in train_data['queries']:
                 doc_irel_snips.append(sent)
         all_rel.extend(doc_rel_snips)
         all_irel.extend(doc_irel_snips)
+    if(len(all_irel)==0):
+        continue
     while(len(all_irel)<len(all_rel)):
         all_irel = all_irel + all_irel
     all_irel = random.sample(all_irel, len(all_rel))
+    #################################
+    for item in tqdm(zip(all_rel, all_irel)):
+        train_extracted_data.append([query_id, query_text, item[0], 1])
+        train_extracted_data.append([query_id, query_text, item[1], 0])
 
+print(len(train_extracted_data))
 
+diri = './BioASQ_Corpus7/'
+if(not os.path.exists(diri)):
+    os.makedirs(diri)
 
-
+with open(os.path.join(diri, 'BioASQ-train.txt')) as f:
+    for d in train_extracted_data:
+        f.write('\t'.join(d) + '\n')
+    f.close()
 
 
 
