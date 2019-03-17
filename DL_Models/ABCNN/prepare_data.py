@@ -95,7 +95,12 @@ for quer in tqdm(dev_data['queries']):
         tit_sents       = sent_tokenize(the_doc['title'])
         abs_sents       = sent_tokenize(the_doc['abstractText'])
         for sent in tit_sents:
-            dev_extracted_data.append(query_id, ' '.join(bioclean(query_text)), ' '.join(bioclean(sent)), query_text, sent, the_doc['title'].index(sent), the_doc['title'].index(sent)+len(sent), rel_doc)
+            dev_extracted_data.append(
+                [
+                    query_id, ' '.join(bioclean(query_text)), ' '.join(bioclean(sent)), query_text, sent,
+                    the_doc['title'].index(sent), the_doc['title'].index(sent)+len(sent), rel_doc
+                ]
+            )
 
 ############################################################
 
