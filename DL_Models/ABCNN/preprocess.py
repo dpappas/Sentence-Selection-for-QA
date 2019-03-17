@@ -1,5 +1,6 @@
 import numpy as np
 import nltk, gensim, BM25, itertools, pickle
+from tqdm import tqdm
 
 # Retrieve the embdeddings from bin file
 class Word2Vec():
@@ -146,9 +147,9 @@ class BioASQ(Data):
         ############################################################
         documents = []
         with open("./BioASQ_Corpus/BioASQ-train.txt", "r", encoding="utf-8") as f:
-            for line1, line2 in itertools.zip_longest(*[f] * 2):
-                items = line1[:-1].split("\t")
-                answer = items[2].lower().split()
+            for line1, line2 in tqdm(itertools.zip_longest(*[f] * 2)):
+                items   = line1[:-1].split("\t")
+                answer  = items[2].lower().split()
                 documents.append(answer)
         print('computing avgdl')
         train_avgdl = BM25.compute_avgdl(documents)
@@ -167,7 +168,7 @@ class BioASQ(Data):
             stopwords = nltk.corpus.stopwords.words("english")
             ####################################################
             if ((mode == 'test') or (mode == 'dev')):
-                for line in f:
+                for line in tqdm(f):
                     items = line[:-1].split("\t")
                     s1 = items[1].lower().split()
                     # truncate answers to 40 tokens.
@@ -207,7 +208,7 @@ class BioASQ(Data):
                     if local_max_len > self.max_len:
                         self.max_len = local_max_len
             elif (mode == 'train'):
-                for line in f:
+                for line in tqdm(f):
                     items = line[:-1].split("\t")
                     # We retieve the question, the candidate answer and the label from each line
                     s1 = items[1].lower().split()
