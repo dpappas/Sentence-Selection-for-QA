@@ -60,11 +60,8 @@ def train(lr, w, l2_reg, epoch, batch_size, model_type, num_layers, data_type, w
     # A Session object encapsulates the environment in which Operation objects are executed,
     # and Tensor objects are evaluated.
     with tf.Session() as sess:
-
         sess.run(init)    # initialize variables
-
         print("=" * 50)
-
         # We start the loop for training, which is based on the number of epochs we entered as a parameter
         for e in range(1, epoch + 1):
             print("[Epoch " + str(e) + "]")
@@ -73,44 +70,37 @@ def train(lr, w, l2_reg, epoch, batch_size, model_type, num_layers, data_type, w
             LR = linear_model.LogisticRegression()
             SVM = svm.LinearSVC()
             clf_features = []
-
             # While we have data to train our model
             while train_data.is_available():
                 i += 1
-
                 # We retrieved the next training batch
                 # batch_x1 : Question sentence
                 # batch_x2 : Candidate answer sentence
                 # batch-y : label (0 or 1)
                 # batch_features : batch features
                 batch_x1, batch_x2, batch_y, batch_features = train_data.next_batch(batch_size=batch_size)
-                merged, _, c, features = sess.run([model.merged, optimizer, model.cost, model.output_features],
-                                                  feed_dict={model.x1: batch_x1,
-                                                             model.x2: batch_x2,
-                                                             model.y: batch_y,
-                                                             model.features: batch_features})
-
+                merged, _, c, features = sess.run(
+                    [model.merged, optimizer, model.cost, model.output_features],
+                    feed_dict={model.x1: batch_x1, model.x2: batch_x2, model.y: batch_y, model.features: batch_features}
+                )
                 clf_features.append(features)
-
                 if i % 100 == 0:
                     print("[batch " + str(i) + "] cost:", c)
-
             # Save info for the specific epoch
             save_path = saver.save(sess, build_path("./models/", data_type, model_type, num_layers), global_step=e)
             print("model saved as", save_path)
-
+            ##################################
             clf_features = np.concatenate(clf_features)
             LR.fit(clf_features, train_data.labels)
             SVM.fit(clf_features, train_data.labels)
-
+            ##################################
             LR_path = build_path("./models/", data_type, model_type, num_layers, "-" + str(e) + "-LR.pkl")
             SVM_path = build_path("./models/", data_type, model_type, num_layers, "-" + str(e) + "-SVM.pkl")
             joblib.dump(LR, LR_path)
             joblib.dump(SVM, SVM_path)
-
+            ##################################
             print("LR saved as", LR_path)
             print("SVM saved as", SVM_path)
-
         # When the loop ends, our model was trained with success!!!
         print("training finished!")
         print("=" * 50)
