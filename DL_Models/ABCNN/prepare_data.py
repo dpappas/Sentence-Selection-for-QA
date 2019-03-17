@@ -118,12 +118,12 @@ if(not os.path.exists(diri)):
 
 with open(os.path.join(diri, 'BioASQ-train.txt'), 'w') as f:
     for d in train_extracted_data:
-        f.write('\t'.join(d).replace('\n', ' ').replace('\t', ' ') + '\n')
+        f.write('\t'.join(d).replace('\n', ' ') + '\n')
     f.close()
 
 with open(os.path.join(diri, 'BioASQ-dev.txt'), 'w') as f:
     for d in dev_extracted_data:
-        f.write('\t'.join(d).replace('\n', ' ').replace('\t', ' ') + '\n')
+        f.write('\t'.join(d).replace('\n', ' ') + '\n')
     f.close()
 
 ############################################################
