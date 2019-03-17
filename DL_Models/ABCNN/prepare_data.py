@@ -87,8 +87,6 @@ for quer in tqdm(dev_data['queries']):
     rel_docs            = [rd for rd in quer['relevant_documents'] if(rd in train_docs)]
     query_id            = quer['query_id']
     query_text          = quer['query_text']
-    snips               = [sn['text'] for sn in bioasq6_data[query_id]['snippets'] if(sn['document'].split('/')[-1].strip() in rel_docs)]
-    good_snips          = [' '.join(bioclean(sn)) for sn in snips]
     #################################
     for rel_doc in tqdm(rel_docs):
         the_doc         = train_docs[rel_doc]
