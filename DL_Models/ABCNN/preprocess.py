@@ -144,7 +144,7 @@ class BioASQ(Data):
         ############################################################
         documents = []
         with open("./BioASQ_Corpus/BioASQ-train.txt", "r", encoding="utf-8") as f:
-            for line1, line2 in tqdm(itertools.zip_longest(*[f] * 2), total=39926):
+            for line1, line2 in tqdm(itertools.zip_longest(*[f] * 2), total=35629):
                 items   = line1[:-1].split("\t")
                 answer  = items[2].lower().split()
                 documents.append(answer)
@@ -165,7 +165,7 @@ class BioASQ(Data):
             stopwords = nltk.corpus.stopwords.words("english")
             ####################################################
             if ((mode == 'test') or (mode == 'dev')):
-                for line in tqdm(f, total=79852):
+                for line in tqdm(f):
                     items = line[:-1].split("\t")
                     s1 = items[1].lower().split()
                     # truncate answers to 40 tokens.
@@ -205,7 +205,7 @@ class BioASQ(Data):
                     if local_max_len > self.max_len:
                         self.max_len = local_max_len
             elif (mode == 'train'):
-                for line in tqdm(f):
+                for line in tqdm(f, total=71258):
                     items = line[:-1].split("\t")
                     # We retieve the question, the candidate answer and the label from each line
                     s1 = items[1].lower().split()
