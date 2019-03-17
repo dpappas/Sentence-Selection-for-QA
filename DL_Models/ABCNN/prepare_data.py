@@ -96,7 +96,14 @@ for quer in tqdm(dev_data['queries']):
             dev_extracted_data.append(
                 [
                     query_id, ' '.join(bioclean(query_text)), ' '.join(bioclean(sent)), query_text, sent,
-                    the_doc['title'].index(sent), the_doc['title'].index(sent)+len(sent), rel_doc
+                    str(the_doc['title'].index(sent)), str(the_doc['title'].index(sent)+len(sent)), rel_doc
+                ]
+            )
+        for sent in abs_sents:
+            dev_extracted_data.append(
+                [
+                    query_id, ' '.join(bioclean(query_text)), ' '.join(bioclean(sent)), query_text, sent,
+                    str(the_doc['abstractText'].index(sent)), str(the_doc['abstractText'].index(sent)+len(sent)), rel_doc
                 ]
             )
 
