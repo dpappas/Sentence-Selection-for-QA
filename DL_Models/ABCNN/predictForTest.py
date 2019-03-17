@@ -174,4 +174,7 @@ if __name__ == "__main__":
     )
     ############################################################
 
-
+'''
+cd ~/Sentence-Selection-for-QA/DL_Models/ABCNN/  
+CUDA_VISIBLE_DEVICES=-1 python3.6 predictForTest.py
+'''
