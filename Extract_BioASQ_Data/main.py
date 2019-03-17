@@ -94,6 +94,7 @@ with open(fname) as data_file:
 for question in data['questions']:
     questions.append(question.get('body'))
     documents.append(question.get('documents'))
+
 print("#questions: ", len(questions))
 scrap_PubMeds(documents)
 

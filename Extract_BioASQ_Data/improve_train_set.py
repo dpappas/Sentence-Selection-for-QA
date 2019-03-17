@@ -71,7 +71,6 @@ def transform_to_collection(qids, questions, documents, y):
     labels.append(ys)
     return ids, queries, collections, labels
 
-
 def seperate_punctuation(dataset):
     with open( dataset, 'r') as dset:
         ids, questions, answers, labels = [], [], [], []
@@ -91,7 +90,6 @@ def seperate_punctuation(dataset):
             except:
                 pass
     return ids, questions, answers, labels
-
 
 def balance_dataset(ids, questions, answers, labels):
     ids, questions, answers, labels = transform_to_collection(ids, questions, answers, labels)
@@ -120,11 +118,9 @@ def balance_dataset(ids, questions, answers, labels):
                         zeros.append(col)
     return temp_ids, temp_questions, temp_answers, temp_labels
 
-
 def clean_dataset(dataset):
     ids, questions, answers, labels = seperate_punctuation(dataset)
     return ids, questions, answers, labels
-
 
 def improve_dataset(dataset):
     ids, questions_list, answers_list, labels = clean_dataset(dataset)
@@ -143,7 +139,5 @@ def improve_dataset(dataset):
     train_set = open("Datasets/train.txt", 'a')
     for id, question, answer, label in zip(ids, questions, answers, labels):
         train_set.write(id + "\t" + question + "\t" +answer + "\t" + str(label) + "\n")
-
-
 
 improve_dataset("Datasets/train.txt")
