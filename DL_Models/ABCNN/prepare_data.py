@@ -130,6 +130,10 @@ head -10 ./BioASQ_Corpus7/BioASQ-train.txt
 '''
 
 '''
+train
+qid \t clean_quest \t clean_sent \t tag
+
+dev
 qid \t clean_quest \t clean_sent \t quest \t sent \t offset_begin \t offset_end \t pubmed_id
 '''
 
