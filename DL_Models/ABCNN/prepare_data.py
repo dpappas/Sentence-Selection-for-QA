@@ -57,7 +57,8 @@ for quer in tqdm(train_data['queries']):
     all_rel, all_irel   = [], []
     for rel_doc in tqdm(rel_docs):
         the_doc         = train_docs[rel_doc]
-        sents           = sent_tokenize(the_doc['title']) + sent_tokenize(the_doc['abstractText'])
+        # sents           = sent_tokenize(the_doc['title']) + sent_tokenize(the_doc['abstractText'])
+        sents           = sent_tokenize(the_doc['abstractText'])
         doc_rel_snips   = []
         doc_irel_snips  = []
         for sent in sents:
@@ -91,16 +92,16 @@ for quer in tqdm(dev_data['queries']):
     #################################
     for rel_doc in tqdm(rel_docs):
         the_doc         = train_docs[rel_doc]
-        tit_sents       = sent_tokenize(the_doc['title'])
-        abs_sents       = sent_tokenize(the_doc['abstractText'])
-        for sent in tit_sents:
-            if(len(' '.join(bioclean(query_text)).strip())!=0):
-                dev_extracted_data.append(
-                    [
-                        query_id, ' '.join(bioclean(query_text)), ' '.join(bioclean(sent)), query_text, sent,
-                        str(the_doc['title'].index(sent)), str(the_doc['title'].index(sent)+len(sent)), rel_doc
-                    ]
-                )
+        # tit_sents       = sent_tokenize(the_doc['title'])
+        # for sent in tit_sents:
+        #     if(len(' '.join(bioclean(query_text)).strip())!=0):
+        #         dev_extracted_data.append(
+        #             [
+        #                 query_id, ' '.join(bioclean(query_text)), ' '.join(bioclean(sent)), query_text, sent,
+        #                 str(the_doc['title'].index(sent)), str(the_doc['title'].index(sent)+len(sent)), rel_doc
+        #             ]
+        #         )
+        abs_sents = sent_tokenize(the_doc['abstractText'])
         for sent in abs_sents:
             if(len(' '.join(bioclean(query_text)).strip())!=0):
                 dev_extracted_data.append(
