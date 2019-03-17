@@ -61,11 +61,12 @@ for quer in tqdm(train_data['queries']):
         doc_rel_snips   = []
         doc_irel_snips  = []
         for sent in sents:
-            sent = ' '.join(bioclean(sent))
-            if(snip_is_relevant(sent , good_snips)):
-                doc_rel_snips.append(sent)
-            else:
-                doc_irel_snips.append(sent)
+            sent = ' '.join(bioclean(sent)).strip()
+            if(len(sent)>0):
+                if(snip_is_relevant(sent , good_snips)):
+                    doc_rel_snips.append(sent)
+                else:
+                    doc_irel_snips.append(sent)
         all_rel.extend(doc_rel_snips)
         all_irel.extend(doc_irel_snips)
     if(len(all_irel)==0):
@@ -93,19 +94,21 @@ for quer in tqdm(dev_data['queries']):
         tit_sents       = sent_tokenize(the_doc['title'])
         abs_sents       = sent_tokenize(the_doc['abstractText'])
         for sent in tit_sents:
-            dev_extracted_data.append(
-                [
-                    query_id, ' '.join(bioclean(query_text)), ' '.join(bioclean(sent)), query_text, sent,
-                    str(the_doc['title'].index(sent)), str(the_doc['title'].index(sent)+len(sent)), rel_doc
-                ]
-            )
+            if(len(' '.join(bioclean(query_text)).strip())!=0):
+                dev_extracted_data.append(
+                    [
+                        query_id, ' '.join(bioclean(query_text)), ' '.join(bioclean(sent)), query_text, sent,
+                        str(the_doc['title'].index(sent)), str(the_doc['title'].index(sent)+len(sent)), rel_doc
+                    ]
+                )
         for sent in abs_sents:
-            dev_extracted_data.append(
-                [
-                    query_id, ' '.join(bioclean(query_text)), ' '.join(bioclean(sent)), query_text, sent,
-                    str(the_doc['abstractText'].index(sent)), str(the_doc['abstractText'].index(sent)+len(sent)), rel_doc
-                ]
-            )
+            if(len(' '.join(bioclean(query_text)).strip())!=0):
+                dev_extracted_data.append(
+                    [
+                        query_id, ' '.join(bioclean(query_text)), ' '.join(bioclean(sent)), query_text, sent,
+                        str(the_doc['abstractText'].index(sent)), str(the_doc['abstractText'].index(sent)+len(sent)), rel_doc
+                    ]
+                )
 
 ############################################################
 
