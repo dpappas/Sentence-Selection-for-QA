@@ -55,12 +55,8 @@ class Data():
             s1 = self.s1s[self.index + i]
             s2 = self.s2s[self.index + i]
             # [1, d0, s]
-            s1_mats.append(np.expand_dims(np.pad(np.column_stack([self.word2vec.get(w) for w in s1]),
-                                                 [[0, 0], [0, self.max_len - len(s1)]],
-                                                 "constant"), axis=0))
-            s2_mats.append(np.expand_dims(np.pad(np.column_stack([self.word2vec.get(w) for w in s2]),
-                                                 [[0, 0], [0, self.max_len - len(s2)]],
-                                                 "constant"), axis=0))
+            s1_mats.append(np.expand_dims(np.pad(np.column_stack([self.word2vec.get(w) for w in s1]), [[0, 0], [0, self.max_len - len(s1)]], "constant"), axis=0))
+            s2_mats.append(np.expand_dims(np.pad(np.column_stack([self.word2vec.get(w) for w in s2]), [[0, 0], [0, self.max_len - len(s2)]], "constant"), axis=0))
         ###################################################
         # [batch_size, d0, s]
         batch_s1s = np.concatenate(s1_mats, axis=0)
@@ -68,6 +64,7 @@ class Data():
         batch_labels = self.labels[self.index:self.index + batch_size]
         batch_features = self.features[self.index:self.index + batch_size]
         self.index += batch_size
+        self.pbar.update(batch_size)
         return batch_s1s, batch_s2s, batch_labels, batch_features
     ###################################################
     def getMoreInfo(self):
@@ -147,7 +144,7 @@ class BioASQ(Data):
         ############################################################
         documents = []
         with open("./BioASQ_Corpus/BioASQ-train.txt", "r", encoding="utf-8") as f:
-            for line1, line2 in tqdm(itertools.zip_longest(*[f] * 2)):
+            for line1, line2 in tqdm(itertools.zip_longest(*[f] * 2), total=39926):
                 items   = line1[:-1].split("\t")
                 answer  = items[2].lower().split()
                 documents.append(answer)
@@ -168,7 +165,7 @@ class BioASQ(Data):
             stopwords = nltk.corpus.stopwords.words("english")
             ####################################################
             if ((mode == 'test') or (mode == 'dev')):
-                for line in tqdm(f):
+                for line in tqdm(f, total=79852):
                     items = line[:-1].split("\t")
                     s1 = items[1].lower().split()
                     # truncate answers to 40 tokens.
@@ -236,6 +233,8 @@ class BioASQ(Data):
                         self.max_len = local_max_len
         ###################################################
         self.data_size = len(self.s1s)
+        self.pbar = tqdm(total=self.data_size)
+        ###################################################
         flatten = lambda l: [item for sublist in l for item in sublist]
         q_vocab = list(set(flatten(self.s1s)))
         idf = {}
