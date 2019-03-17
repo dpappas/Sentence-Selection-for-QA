@@ -38,6 +38,7 @@ class Data():
     # Reset index to zero (0)
     def reset_index(self):
         self.index = 0
+        self.pbar = tqdm(total=self.data_size)
     ###################################################
     def next(self):
         if (self.is_available()):
