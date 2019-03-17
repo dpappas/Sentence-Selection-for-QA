@@ -75,8 +75,8 @@ for quer in tqdm(train_data['queries']):
     all_irel = random.sample(all_irel, len(all_rel))
     #################################
     for item in tqdm(zip(all_rel, all_irel)):
-        train_extracted_data.append([query_id, query_text, item[0], 1])
-        train_extracted_data.append([query_id, query_text, item[1], 0])
+        train_extracted_data.append([query_id, query_text, item[0], '1'])
+        train_extracted_data.append([query_id, query_text, item[1], '0'])
 
 print(len(train_extracted_data))
 
@@ -119,7 +119,7 @@ with open(os.path.join(diri, 'BioASQ-train.txt'), 'w') as f:
     f.close()
 
 with open(os.path.join(diri, 'BioASQ-dev.txt'), 'w') as f:
-    for d in train_extracted_data:
+    for d in dev_extracted_data:
         f.write('\t'.join(d) + '\n')
     f.close()
 
