@@ -133,6 +133,7 @@ class BioASQ(Data):
         return unigram_overlap, bigram_overlap, idf_uni_overlap
     ###################################################
     def open_file(self, mode):
+        print('loading idf scores')
         df_scores, idf_scores = self.load_idf_scores()
         documents = []
         with open("./BioASQ_Corpus/BioASQ-" + mode + ".txt", "r", encoding="utf-8") as f:
@@ -140,6 +141,7 @@ class BioASQ(Data):
                 items = line1[:-1].split("\t")
                 answer = items[2].lower().split()
                 documents.append(answer)
+        print('computing avgdl')
         avgdl = BM25.compute_avgdl(documents)
         ############################################################
         documents = []
@@ -148,11 +150,13 @@ class BioASQ(Data):
                 items = line1[:-1].split("\t")
                 answer = items[2].lower().split()
                 documents.append(answer)
+        print('computing avgdl')
         train_avgdl = BM25.compute_avgdl(documents)
         ####################################################
         # Compute mean and deviation for Z-score normalization
         maxim = max(idf_scores.keys(), key=(lambda i: idf_scores[i]))
         rare_word_value = idf_scores[maxim]
+        print('computing Zscore values')
         mean, deviation = BM25.compute_Zscore_values("./BioASQ_Corpus/BioASQ-train.txt", idf_scores, train_avgdl, 1.2, 0.75, rare_word_value)
         ####################################################
         print("mean", mean)             # 3.1267493162888687

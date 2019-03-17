@@ -26,37 +26,36 @@ def calculate_accuracy():
     return float(N_CORRECT) / N_ITEMS_SEEN
 
 def train(lr, w, l2_reg, epoch, batch_size, model_type, num_layers, data_type, word2vec, num_classes=2):
-
     if data_type == 'BioASQ':
         train_data = BioASQ(word2vec=word2vec)
     else:
         print("Wrong dataset...")
-
+    ################################
     # We open the train text file in train mode
     train_data.open_file(mode="train")
-
+    ################################
     print("=" * 50)
     # Get total lines in the train text file (QA pairs)
     print("training data size:", train_data.data_size)
     print("training max len:", train_data.max_len)
     print("=" * 50)
-
+    ################################
     model = ABCNN(
         s=train_data.max_len, w=w, l2_reg=l2_reg, model_type=model_type, d0=30,
         num_features=train_data.num_features, num_classes=num_classes, num_layers=num_layers
     )
-
+    ################################
     # We use Adagrad optimizer for our train process
     optimizer = tf.train.AdagradOptimizer(lr, name="optimizer").minimize(model.cost)
-
+    ################################
     # Initialize all variables
     init = tf.global_variables_initializer()
-
+    ################################
     # The Saver class adds ops to save and restore variables to and from checkpoints.
     # Checkpoints are binary files in a proprietary format which map variable names to tensor values.
     # The best way to examine the contents of a checkpoint is to load it using a Saver.
     saver = tf.train.Saver(max_to_keep=100)
-
+    ################################
     # A class for running TensorFlow operations.
     # A Session object encapsulates the environment in which Operation objects are executed,
     # and Tensor objects are evaluated.
@@ -126,7 +125,7 @@ if __name__ == "__main__":
     # --model_type: model type
     # --num_layers: number of convolution layers
     # --data_type: dataset with which we want to train our model
-
+    ################################
     # default parameters
     params = {
         "lr": 0.08,

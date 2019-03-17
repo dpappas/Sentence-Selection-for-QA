@@ -109,7 +109,7 @@ for quer in tqdm(dev_data['queries']):
 
 ############################################################
 
-diri = './BioASQ_Corpus7/'
+diri = './BioASQ_Corpus/'
 if(not os.path.exists(diri)):
     os.makedirs(diri)
 
