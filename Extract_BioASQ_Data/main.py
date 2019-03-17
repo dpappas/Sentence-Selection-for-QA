@@ -7,9 +7,9 @@ def scrap_PubMeds(documents):
     for document_list in documents:
         for document in document_list:
             ids.append(document.rsplit('/', 1)[-1])
-
+    ################################
     print("Number of total PubMeds to be extracted: ", len(ids))
-
+    ################################
     # Retrieve abstract from each document and create relevant external files
     doc_counter = 0
     for docid in ids:
@@ -20,14 +20,14 @@ def scrap_PubMeds(documents):
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
-
+        ################################
         # Create xml file for the current document
         xml_file = open("PubMeds/Abstracts/" + docid + "/" + docid + ".xml", "w")
         abstract_plain_text = get_XML(docid)
         if abstract_plain_text is not None:
             xml_file.write(abstract_plain_text)
         xml_file.close
-
+        ################################
         # Create text files with abstract and title
         get_Abstract(docid)
         get_Title(docid)
@@ -59,8 +59,6 @@ def get_Abstract(docid):
         file.write("")
         file.close()
 
-
-
 # Extract document's title from XML form
 def get_Title(docid):
     ft = open("Pubmeds/Abstracts/" + docid + "/" + docid + "_title.txt", 'w').close()
@@ -81,9 +79,6 @@ def get_Title(docid):
         file = open("PubMeds/Abstracts/" + docid + "/" + docid + "_title.txt", 'a')
         file.write("")
         file.close()
-
-
-
 
 # ***** Main Script body *****
 

@@ -20,14 +20,14 @@ def createTrainSetForm(qid, question, docid, snippet):
         for sentence in sentences:
             if sentence != "." or sentence != " . ":
                 QA_pairs.append(qid + "\t" + question + "\t" + sentence + "\t" + "0")
-
+        ################################
         # Shuffle the irrelevant sentences and then we pick 5 random ones together with the relevant snippet
         # We use this technique in order to reduce the number of irrelevant snippets
         shuffle(QA_pairs)
         QA_pairs = QA_pairs[:5]
         # Concatenate the two lists
         final_QA_pairs = set(rel_snip + QA_pairs)
-
+        ################################
         for pair in final_QA_pairs:
             try:
                 new_set.write(pair + "\n")
@@ -46,7 +46,7 @@ def createTestSetForm(qid, question, docid):
             if sentence != "." or sentence != " . ":
                 offset_start, offset_end = getOffsets(abstract, sentence)
                 QA_pairs.append(qid + "\t" + question + "\t" + sentence + "\t" + str(offset_start) + "\t" + str(offset_end) + "\t" + str(docid))
-
+        ################################
         for pair in QA_pairs:
             try:
                 new_set.write(pair + "\n")

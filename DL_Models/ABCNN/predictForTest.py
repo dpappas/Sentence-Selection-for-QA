@@ -167,10 +167,15 @@ if __name__ == "__main__":
             params[k] = v
     ############################################################
     test(
-        w=int(params["ws"]), l2_reg=float(params["l2_reg"]), epoch=int(params["epoch"]),
-        max_len=int(params["max_len"]), model_type=params["model_type"],
-        num_layers=int(params["num_layers"]), data_type=params["data_type"],
-        classifier=params["classifier"], word2vec=params["word2vec"]
+        w           = int(params["ws"]),
+        l2_reg      = float(params["l2_reg"]),
+        epoch       = int(params["epoch"]),
+        max_len     = int(params["max_len"]),
+        model_type  = params["model_type"],
+        num_layers  = int(params["num_layers"]),
+        data_type   = params["data_type"],
+        classifier  = params["classifier"],
+        word2vec    = params["word2vec"]
     )
     ############################################################
 
