@@ -84,15 +84,49 @@ diri = './BioASQ_Corpus7/'
 if(not os.path.exists(diri)):
     os.makedirs(diri)
 
-with open(os.path.join(diri, 'BioASQ-train.txt')) as f:
+with open(os.path.join(diri, 'BioASQ-train.txt'), 'w') as f:
     for d in train_extracted_data:
         f.write('\t'.join(d) + '\n')
     f.close()
 
+############################################################
 
 
+dev_extracted_data = []
+for quer in tqdm(dev_data['queries']):
+    rel_docs            = [rd for rd in quer['relevant_documents'] if(rd in train_docs)]
+    query_id            = quer['query_id']
+    query_text          = ' '.join(bioclean(quer['query_text']))
+    snips               = [sn['text'] for sn in bioasq6_data[query_id]['snippets'] if(sn['document'].split('/')[-1].strip() in rel_docs)]
+    good_snips          = [' '.join(bioclean(sn)) for sn in snips]
+    all_rel, all_irel   = [], []
+    for rel_doc in tqdm(rel_docs):
+        the_doc         = train_docs[rel_doc]
+        tit_sents       = sent_tokenize(the_doc['title'])
+        abs_sents       = sent_tokenize(the_doc['abstractText'])
+        for sent in tit_sents:
 
 
+        all_rel.extend(doc_rel_snips)
+        all_irel.extend(doc_irel_snips)
+    if(len(all_irel)==0):
+        continue
+    while(len(all_irel)<len(all_rel)):
+        all_irel = all_irel + all_irel
+    all_irel = random.sample(all_irel, len(all_rel))
+    #################################
+    for item in tqdm(zip(all_rel, all_irel)):
+        train_extracted_data.append([query_id, query_text, item[0], 1])
+        train_extracted_data.append([query_id, query_text, item[1], 0])
+
+
+'''
+head -10 ./BioASQ_Corpus7/BioASQ-train.txt
+'''
+
+'''
+qid \t clean_quest \t clean_sent \t quest \t sent \t offset_begin \t offset_end \t pubmed_id
+'''
 
 
 
