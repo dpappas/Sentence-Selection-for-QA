@@ -44,13 +44,13 @@ def wordFromID(word_id, vocab):
         except:
             print("Error...word not in Vocabulary!!!")
 
-def test(w, l2_reg, epoch, max_len, model_type, num_layers, data_type, classifier, word2vec, num_classes=2):
+def test(mode, w, l2_reg, epoch, max_len, model_type, num_layers, data_type, classifier, word2vec, num_classes=2):
     if data_type == 'BioASQ':
         test_data = BioASQ(word2vec=word2vec, max_len=max_len)
     else:
         print("Wrong dataset...")
     ################################
-    test_data.open_file(mode="test")
+    test_data.open_file(mode=mode)
     ################################
     model = ABCNN(s=max_len, w=w, l2_reg=l2_reg, model_type=model_type, d0=30, num_features=test_data.num_features, num_classes=num_classes, num_layers=num_layers)
     ################################
@@ -150,7 +150,8 @@ if __name__ == "__main__":
     ############################################################
     # default parameters
     for epoch in range(1, 51):
-        params = {
+        mode    = "dev"
+        params  = {
             "ws"            : 4,
             "l2_reg"        : 0.0004,
             "epoch"         : epoch,
