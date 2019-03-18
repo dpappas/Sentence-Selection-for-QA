@@ -52,6 +52,7 @@ def test(mode, w, l2_reg, epoch, max_len, model_type, num_layers, data_type, cla
     ################################
     test_data.open_file(mode=mode)
     ################################
+    tf.reset_default_graph()
     model = ABCNN(s=max_len, w=w, l2_reg=l2_reg, model_type=model_type, d0=30, num_features=test_data.num_features, num_classes=num_classes, num_layers=num_layers)
     ################################
     model_path = build_path("./models/", data_type, model_type, num_layers)
