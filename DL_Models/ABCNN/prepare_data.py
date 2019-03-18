@@ -123,21 +123,16 @@ print(len(dev_extracted_data))
 
 test_extracted_data = []
 for quer in tqdm(test_data['queries']):
-    rel_docs            = [rd for rd in quer['relevant_documents'] if(rd in test_docs)]
+    retrieved_docs      = [
+        rd.split('/')[-1]
+        for rd in quer['relevant_documents']
+        if(rd in test_docs)
+    ]
     query_id            = quer['query_id']
     query_text          = quer['query_text']
     #################################
-    for rel_doc in tqdm(rel_docs):
+    for rel_doc in tqdm(retrieved_docs):
         the_doc         = test_docs[rel_doc]
-        # tit_sents       = sent_tokenize(the_doc['title'])
-        # for sent in tit_sents:
-        #     if(len(' '.join(bioclean(query_text)).strip())!=0):
-        #         dev_extracted_data.append(
-        #             [
-        #                 query_id, ' '.join(bioclean(query_text)), ' '.join(bioclean(sent)), query_text, sent,
-        #                 str(the_doc['title'].index(sent)), str(the_doc['title'].index(sent)+len(sent)), rel_doc
-        #             ]
-        #         )
         abs_sents       = sent_tokenize(the_doc['abstractText'])
         for sent in abs_sents:
             if(len(' '.join(bioclean(query_text)).strip())!=0):
