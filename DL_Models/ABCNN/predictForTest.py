@@ -186,3 +186,23 @@ if __name__ == "__main__":
 cd ~/Sentence-Selection-for-QA/DL_Models/ABCNN/  
 CUDA_VISIBLE_DEVICES=-1 python3.6 predictForTest.py
 '''
+
+'''
+
+for epoch in range(1,50):
+    print(
+    'java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_{}.dev.json" | grep "MAP snippets" | head -1'.format(epoch).strip()
+    )
+
+java \
+-Xmx10G \
+-cp \
+"/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" \
+evaluation.EvaluatorTask1b \
+-phaseA \
+-e 5 \
+"/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" \
+"/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_31.dev.json" \
+| grep "MAP snippets" | head -1
+
+'''
