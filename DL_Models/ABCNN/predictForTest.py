@@ -51,20 +51,20 @@ def test(mode, w, l2_reg, max_len, model_type, num_layers, data_type, classifier
         print("Wrong dataset...")
     ################################
     test_data.open_file(mode=mode)
-    ################################
-    model = ABCNN(s=max_len, w=w, l2_reg=l2_reg, model_type=model_type, d0=30, num_features=test_data.num_features, num_classes=num_classes, num_layers=num_layers)
-    ################################
-    model_path = build_path("./models/", data_type, model_type, num_layers)
-    ################################
-    MAPs, MRRs = [], []
-    ################################
-    print("=" * 50)
-    print("test data size:", test_data.data_size)
-    ################################
-    test_data.reset_index()
-    ################################
     for epoch in range(1, 51):
         tf.reset_default_graph()
+        ################################
+        model = ABCNN(s=max_len, w=w, l2_reg=l2_reg, model_type=model_type, d0=30, num_features=test_data.num_features, num_classes=num_classes, num_layers=num_layers)
+        ################################
+        model_path = build_path("./models/", data_type, model_type, num_layers)
+        ################################
+        MAPs, MRRs = [], []
+        ################################
+        print("=" * 50)
+        print("test data size:", test_data.data_size)
+        ################################
+        test_data.reset_index()
+        ################################
         with tf.Session() as sess:
             # max_epoch = 2    # Enter the best epoch during the evaluation of the validation set
             max_epoch = epoch
