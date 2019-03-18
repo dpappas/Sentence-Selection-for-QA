@@ -41,6 +41,12 @@ with open(os.path.join(dataloc, 'bioasq7_bm25_top100.train.pkl'), 'rb') as f:
 with open(os.path.join(dataloc, 'bioasq7_bm25_docset_top100.train.pkl'), 'rb') as f:
     train_docs = pickle.load(f)
 
+with open('/home/dpappas/bioasq_all/bioasq7_data/test_batch_1/bioasq7_bm25_top100/bioasq7_bm25_top100.test.pkl', 'rb') as f:
+    test_data = pickle.load(f)
+
+with open('/home/dpappas/bioasq_all/bioasq7_data/test_batch_1/bioasq7_bm25_top100/bioasq7_bm25_docset_top100.test.pkl', 'rb') as f:
+    test_docs = pickle.load(f)
+
 # train
 # 55262a9787ecba3764000009        quest_text      sentence  tag
 #
@@ -86,12 +92,12 @@ print(len(train_extracted_data))
 
 dev_extracted_data = []
 for quer in tqdm(dev_data['queries']):
-    rel_docs            = [rd for rd in quer['relevant_documents'] if(rd in train_docs)]
+    rel_docs            = [rd for rd in quer['relevant_documents'] if(rd in dev_docs)]
     query_id            = quer['query_id']
     query_text          = quer['query_text']
     #################################
     for rel_doc in tqdm(rel_docs):
-        the_doc         = train_docs[rel_doc]
+        the_doc         = dev_docs[rel_doc]
         # tit_sents       = sent_tokenize(the_doc['title'])
         # for sent in tit_sents:
         #     if(len(' '.join(bioclean(query_text)).strip())!=0):
@@ -102,6 +108,35 @@ for quer in tqdm(dev_data['queries']):
         #             ]
         #         )
         abs_sents = sent_tokenize(the_doc['abstractText'])
+        for sent in abs_sents:
+            if(len(' '.join(bioclean(query_text)).strip())!=0):
+                dev_extracted_data.append(
+                    [
+                        query_id, ' '.join(bioclean(query_text)), ' '.join(bioclean(sent)), query_text, sent,
+                        str(the_doc['abstractText'].index(sent)), str(the_doc['abstractText'].index(sent)+len(sent)), rel_doc
+                    ]
+                )
+
+############################################################
+
+test_extracted_data = []
+for quer in tqdm(test_data['queries']):
+    rel_docs            = [rd for rd in quer['relevant_documents'] if(rd in test_docs)]
+    query_id            = quer['query_id']
+    query_text          = quer['query_text']
+    #################################
+    for rel_doc in tqdm(rel_docs):
+        the_doc         = test_docs[rel_doc]
+        # tit_sents       = sent_tokenize(the_doc['title'])
+        # for sent in tit_sents:
+        #     if(len(' '.join(bioclean(query_text)).strip())!=0):
+        #         dev_extracted_data.append(
+        #             [
+        #                 query_id, ' '.join(bioclean(query_text)), ' '.join(bioclean(sent)), query_text, sent,
+        #                 str(the_doc['title'].index(sent)), str(the_doc['title'].index(sent)+len(sent)), rel_doc
+        #             ]
+        #         )
+        abs_sents       = sent_tokenize(the_doc['abstractText'])
         for sent in abs_sents:
             if(len(' '.join(bioclean(query_text)).strip())!=0):
                 dev_extracted_data.append(
