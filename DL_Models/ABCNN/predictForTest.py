@@ -155,7 +155,6 @@ if __name__ == "__main__":
     params  = {
         "ws"            : 4,
         "l2_reg"        : 0.0004,
-        "epoch"         : 3,
         "max_len"       : 40,
         "model_type"    : "BCNN",
         "num_layers"    : 2,
@@ -174,7 +173,6 @@ if __name__ == "__main__":
         mode        = mode,
         w           = int(params["ws"]),
         l2_reg      = float(params["l2_reg"]),
-        epoch       = int(params["epoch"]),
         max_len     = int(params["max_len"]),
         model_type  = params["model_type"],
         num_layers  = int(params["num_layers"]),
