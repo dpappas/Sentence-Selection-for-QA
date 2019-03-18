@@ -117,6 +117,8 @@ for quer in tqdm(dev_data['queries']):
                     ]
                 )
 
+print(len(dev_extracted_data))
+
 ############################################################
 
 test_extracted_data = []
@@ -145,6 +147,8 @@ for quer in tqdm(test_data['queries']):
                         str(the_doc['abstractText'].index(sent)), str(the_doc['abstractText'].index(sent)+len(sent)), rel_doc
                     ]
                 )
+
+print(len(test_extracted_data))
 
 ############################################################
 
