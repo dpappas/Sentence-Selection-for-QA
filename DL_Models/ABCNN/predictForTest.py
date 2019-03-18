@@ -9,7 +9,7 @@ from    utils               import build_path
 from    sklearn.externals   import joblib
 
 def createJsonFile(dict):
-    f = open('experiments/final_predictions_{}.json'.format(params['epoch']), 'w')
+    f = open('experiments/final_predictions_{}.{}.json'.format(params['epoch'], mode), 'w')
     data = {'questions': []}
     for keys, candidates in dict.items():
         basic_info = {'body': keys[2], 'id': keys[1], 'snippets': []}
@@ -170,6 +170,7 @@ if __name__ == "__main__":
                 params[k] = v
         ############################################################
         test(
+            mode        = mode,
             w           = int(params["ws"]),
             l2_reg      = float(params["l2_reg"]),
             epoch       = int(params["epoch"]),
