@@ -139,7 +139,7 @@ for quer in tqdm(test_data['queries']):
         abs_sents       = sent_tokenize(the_doc['abstractText'])
         for sent in abs_sents:
             if(len(' '.join(bioclean(query_text)).strip())!=0):
-                dev_extracted_data.append(
+                test_extracted_data.append(
                     [
                         query_id, ' '.join(bioclean(query_text)), ' '.join(bioclean(sent)), query_text, sent,
                         str(the_doc['abstractText'].index(sent)), str(the_doc['abstractText'].index(sent)+len(sent)), rel_doc
