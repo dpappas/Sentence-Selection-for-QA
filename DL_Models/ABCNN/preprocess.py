@@ -166,7 +166,7 @@ class BioASQ(Data):
             stopwords = nltk.corpus.stopwords.words("english")
             ####################################################
             if ((mode == 'test') or (mode == 'dev')):
-                for line in tqdm(f):
+                for line in tqdm(f, total=889):
                     items = line[:-1].split("\t")
                     s1 = items[1].lower().split()
                     # truncate answers to 40 tokens.
