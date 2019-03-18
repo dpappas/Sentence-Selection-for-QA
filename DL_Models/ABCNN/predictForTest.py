@@ -149,15 +149,15 @@ if __name__ == "__main__":
     ############################################################
     # default parameters
     params = {
-        "ws": 4,
-        "l2_reg": 0.0004,
-        "epoch": 3,
-        "max_len": 40,
-        "model_type": "BCNN",
-        "num_layers": 2,
-        "data_type": "BioASQ",
-        "classifier": "LR",
-        "word2vec": Word2Vec()
+        "ws"            : 4,
+        "l2_reg"        : 0.0004,
+        "epoch"         : 3,
+        "max_len"       : 40,
+        "model_type"    : "BCNN",
+        "num_layers"    : 2,
+        "data_type"     : "BioASQ",
+        "classifier"    : "LR",
+        "word2vec"      : Word2Vec()
     }
     ############################################################
     if len(sys.argv) > 1:
