@@ -64,7 +64,8 @@ def test(w, l2_reg, epoch, max_len, model_type, num_layers, data_type, classifie
     test_data.reset_index()
     ################################
     with tf.Session() as sess:
-        max_epoch = 2    # Enter the best epoch during the evaluation of the validation set
+        # max_epoch = 2    # Enter the best epoch during the evaluation of the validation set
+        max_epoch = epoch
         saver = tf.train.Saver()
         saver.restore(sess, model_path + "-" + str(max_epoch))
         print(model_path + "-" + str(max_epoch), "restored.")
