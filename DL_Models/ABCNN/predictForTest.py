@@ -8,8 +8,8 @@ from    ABCNN               import ABCNN
 from    utils               import build_path
 from    sklearn.externals   import joblib
 
-def createJsonFile(dict):
-    f = open('experiments/final_predictions_{}.{}.json'.format(params['epoch'], mode), 'w')
+def createJsonFile(dict, epoch):
+    f = open('experiments/final_predictions_{}.{}.json'.format(epoch, mode), 'w')
     data = {'questions': []}
     for keys, candidates in dict.items():
         basic_info = {'body': keys[2], 'id': keys[1], 'snippets': []}
@@ -111,7 +111,7 @@ def test(mode, w, l2_reg, max_len, model_type, num_layers, data_type, classifier
                     QA_pairs[s1] = [(s2, labels[i], np.asscalar(pred))]
                     Bio_pairs[(s1, qids[i], old_qs[i])] = [(s2, np.asscalar(pred), old_qs[i], old_as[i], starts[i], ends[i], dids[i])]
             ################################
-            createJsonFile(Bio_pairs)
+            createJsonFile(Bio_pairs, epoch)
             # Calculate MAP and MRR
             MAP, MRR = 0, 0
             for s1 in QA_pairs.keys():
