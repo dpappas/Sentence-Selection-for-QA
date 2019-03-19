@@ -151,7 +151,7 @@ if __name__ == "__main__":
     # --classifier: Final layout classifier(model, LR, SVM)
     ############################################################
     # default parameters
-    mode    = "dev"
+    mode    = sys.argv[1]
     params  = {
         "ws"            : 4,
         "l2_reg"        : 0.0004,
@@ -163,11 +163,11 @@ if __name__ == "__main__":
         "word2vec"      : Word2Vec()
     }
     ############################################################
-    if len(sys.argv) > 1:
-        for arg in sys.argv[1:]:
-            k = arg.split("=")[0][2:]
-            v = arg.split("=")[1]
-            params[k] = v
+    # if len(sys.argv) > 1:
+    #     for arg in sys.argv[1:]:
+    #         k = arg.split("=")[0][2:]
+    #         v = arg.split("=")[1]
+    #         params[k] = v
     ############################################################
     test(
         mode        = mode,
@@ -204,5 +204,58 @@ evaluation.EvaluatorTask1b \
 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" \
 "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_31.dev.json" \
 | grep "MAP snippets" | head -1
+
+
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_1.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_2.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_3.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_4.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_5.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_6.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_7.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_8.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_9.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_10.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_11.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_12.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_13.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_14.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_15.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_16.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_17.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_18.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_19.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_20.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_21.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_22.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_23.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_24.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_25.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_26.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_27.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_28.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_29.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_30.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_31.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_32.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_33.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_34.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_35.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_36.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_37.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_38.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_39.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_40.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_41.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_42.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_43.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_44.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_45.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_46.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_47.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_48.dev.json" | grep "MAP snippets" | head -1
+java -Xmx10G -cp "/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" evaluation.EvaluatorTask1b -phaseA -e 5 "/home/dpappas/bioasq_all/bioasq7_data/training7b.dev.json" "/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_49.dev.json" | grep "MAP snippets" | head -1
+
+
 
 '''
