@@ -217,12 +217,23 @@ evaluation.EvaluatorTask1b \
 -phaseA \
 -e 5 \
 "/home/dpappas/bioasq_all/bioasq7/bioasq7/data/test_batch_1/BioASQ-task7bPhaseB-testset1" \
-"/home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_50.test.json" \
+"/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_1/bert.json" \
+| grep "MAP snippets" | head -1
+
+java \
+-Xmx10G \
+-cp \
+"/home/dpappas/bioasq_all/dist/my_bioasq_eval_2.jar" \
+evaluation.EvaluatorTask1b \
+-phaseA \
+-e 5 \
+"/home/dpappas/bioasq_all/bioasq7/bioasq7/data/test_batch_1/BioASQ-task7bPhaseB-testset1" \
+"/home/dpappas/bioasq_all/bioasq7/bioasq7/snippet_results/test_batch_1/bert_high_bcnn.json" \
 | grep "MAP snippets" | head -1
 
 python3.6 "/home/dpappas/bioasq_all/eval/run_eval.py" \
 "/home/dpappas/bioasq_all/bioasq7/bioasq7/data/test_batch_1/BioASQ-task7bPhaseB-testset1" \
-"/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_1/bert_jpdrmm.json" | grep map
+"/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_1/bert.json" | grep map
 
 
 java \
