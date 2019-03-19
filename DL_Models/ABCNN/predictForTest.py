@@ -51,7 +51,7 @@ def test(mode, w, l2_reg, max_len, model_type, num_layers, data_type, classifier
         print("Wrong dataset...")
     ################################
     test_data.open_file(mode=mode)
-    for epoch in range(1, 51):
+    for epoch in range(epoch_from, epoch_to):
         tf.reset_default_graph()
         ################################
         model = ABCNN(s=max_len, w=w, l2_reg=l2_reg, model_type=model_type, d0=30, num_features=test_data.num_features, num_classes=num_classes, num_layers=num_layers)
@@ -151,7 +151,9 @@ if __name__ == "__main__":
     # --classifier: Final layout classifier(model, LR, SVM)
     ############################################################
     # default parameters
-    mode    = sys.argv[1]
+    mode        = sys.argv[1]
+    epoch_from  = int(sys.argv[2])
+    epoch_to    = int(sys.argv[3])
     params  = {
         "ws"            : 4,
         "l2_reg"        : 0.0004,
