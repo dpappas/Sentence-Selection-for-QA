@@ -10,15 +10,22 @@ diri = './BioASQ_Corpus/'
 if(not os.path.exists(diri)):
     os.makedirs(diri)
 
-with open('/home/dpappas/bioasq_all/bioasq7_data/test_batch_1/bioasq7_bm25_top100/bioasq7_bm25_top100.test.pkl', 'rb') as f:
+# f1 = '/home/dpappas/bioasq_all/bioasq7_data/test_batch_1/bioasq7_bm25_top100/bioasq7_bm25_top100.test.pkl'
+# f2 = '/home/dpappas/bioasq_all/bioasq7_data/test_batch_1/bioasq7_bm25_top100/bioasq7_bm25_docset_top100.test.pkl'
+# # docs_retrieved_path = '/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_1/bert.json'
+# docs_retrieved_path = '/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_1/bert-high-conf-0.01.json'
+# # docs_retrieved_path = '/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_1/term-pacrr.json'
+
+f1 = '/home/dpappas/bioasq_all/bioasq7/bioasq7/data/test_batch_2/bioasq7_bm25_top100/bioasq7_bm25_top100.test.pkl'
+f2 = '/home/dpappas/bioasq_all/bioasq7/bioasq7/data/test_batch_2/bioasq7_bm25_top100/bioasq7_bm25_docset_top100.test.pkl'
+docs_retrieved_path = '/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_2/bert-high-conf-0.01.json'
+
+with open(f1, 'rb') as f:
     test_data = pickle.load(f)
 
-with open('/home/dpappas/bioasq_all/bioasq7_data/test_batch_1/bioasq7_bm25_top100/bioasq7_bm25_docset_top100.test.pkl', 'rb') as f:
+with open(f2, 'rb') as f:
     test_docs = pickle.load(f)
 
-# docs_retrieved_path = '/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_1/bert.json'
-docs_retrieved_path = '/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_1/bert-high-conf-0.01.json'
-# docs_retrieved_path = '/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_1/term-pacrr.json'
 with open(docs_retrieved_path, 'r') as f:
     doc_res = json.load(f)
     doc_res = dict([(t['id'], t) for t in doc_res['questions']])
@@ -47,3 +54,4 @@ with open(os.path.join(diri, 'BioASQ-test.txt'), 'w') as f:
     for d in test_extracted_data:
         f.write('\t'.join(d).replace('\n', ' ') + '\n')
     f.close()
+
