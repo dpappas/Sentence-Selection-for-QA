@@ -154,7 +154,7 @@ if __name__ == "__main__":
     mode        = sys.argv[1]
     epoch_from  = int(sys.argv[2])
     epoch_to    = int(sys.argv[3])
-    params  = {
+    params      = {
         "ws"            : 4,
         "l2_reg"        : 0.0004,
         "max_len"       : 40,
