@@ -19,7 +19,8 @@ if(not os.path.exists(diri)):
 f1 = '/home/dpappas/bioasq_all/bioasq7/bioasq7/data/test_batch_2/bioasq7_bm25_top100/bioasq7_bm25_top100.test.pkl'
 f2 = '/home/dpappas/bioasq_all/bioasq7/bioasq7/data/test_batch_2/bioasq7_bm25_top100/bioasq7_bm25_docset_top100.test.pkl'
 # docs_retrieved_path = '/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_2/bert-high-conf-0.01.json'
-docs_retrieved_path = '/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_2/bert.json'
+# docs_retrieved_path = '/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_2/bert.json'
+docs_retrieved_path = '/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_2/term-pacrr.json'
 
 
 with open(f1, 'rb') as f:
