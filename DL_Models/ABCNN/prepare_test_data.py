@@ -22,7 +22,6 @@ f2 = '/home/dpappas/bioasq_all/bioasq7/bioasq7/data/test_batch_2/bioasq7_bm25_to
 # docs_retrieved_path = '/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_2/bert.json'
 docs_retrieved_path = '/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_2/term-pacrr.json'
 
-
 with open(f1, 'rb') as f:
     test_data = pickle.load(f)
 
