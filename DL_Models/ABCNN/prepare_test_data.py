@@ -27,8 +27,8 @@ ddocs               = '/home/dpappas/bioasq_all/bioasq7/document_results/test_ba
 f1                  = os.path.join(ddata, 'bioasq7_bm25_top100.test.pkl')
 f2                  = os.path.join(ddata, 'bioasq7_bm25_docset_top100.test.pkl')
 # docs_retrieved_path = os.path.join(ddocs, 'bert-high-conf-0.01.json')
-docs_retrieved_path = os.path.join(ddocs, 'bert.json')
-# docs_retrieved_path = os.path.join(ddocs, 'term-pacrr.json')
+# docs_retrieved_path = os.path.join(ddocs, 'bert.json')
+docs_retrieved_path = os.path.join(ddocs, 'term-pacrr.json')
 
 with open(f1, 'rb') as f:
     test_data = pickle.load(f)
@@ -70,5 +70,9 @@ cd ~/Sentence-Selection-for-QA/DL_Models/ABCNN/
 python3.6 prepare_test_data.py
 CUDA_VISIBLE_DEVICES=-1 python3.6 predictForTest.py test 50 51
 mv /home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_50.test.json /home/dpappas/bioasq_all/bioasq7/snippet_results/test_batch_3/bert_high_bcnn.json
+
+scp 
+/home/DATA/Biomedical/bioasq7/document_results/test_batch_3/
+/home/DATA/Biomedical/bioasq7/document_results/test_batch_3/
 
 '''
