@@ -73,8 +73,8 @@ mv \
 /home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_50.test.json \
 /home/dpappas/bioasq_all/bioasq7/snippet_results/test_batch_3/term_pacrr_bcnn.json
 
-scp 
-/home/DATA/Biomedical/bioasq7/document_results/test_batch_3/
+scp \
+/home/DATA/Biomedical/bioasq7/document_results/test_batch_3/ \
 /home/DATA/Biomedical/bioasq7/document_results/test_batch_3/
 
 '''
