@@ -188,6 +188,7 @@ if __name__ == "__main__":
 cd ~/Sentence-Selection-for-QA/DL_Models/ABCNN/  
 CUDA_VISIBLE_DEVICES=-1 python3.6 predictForTest.py dev  1 51
 CUDA_VISIBLE_DEVICES=-1 python3.6 predictForTest.py test 50 51
+# results are in dir : ./experiments/final_predictions_50.test.json
 '''
 
 '''

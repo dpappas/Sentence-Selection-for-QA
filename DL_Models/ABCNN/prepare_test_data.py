@@ -22,8 +22,10 @@ if(not os.path.exists(diri)):
 # # docs_retrieved_path = '/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_2/bert.json'
 # docs_retrieved_path = '/home/dpappas/bioasq_all/bioasq7/bioasq7/document_results/test_batch_2/term-pacrr.json'
 
-ddata               = '/home/dpappas/bioasq_all/bioasq7/data/test_batch_3/bioasq7_bm25_top100/'
-ddocs               = '/home/dpappas/bioasq_all/bioasq7/document_results/test_batch_3/'
+import sys
+batch               = sys.argv[1]
+ddata               = '/home/dpappas/bioasq_all/bioasq7/data/test_batch_{}/bioasq7_bm25_top100/'.format(batch)
+ddocs               = '/home/dpappas/bioasq_all/bioasq7/document_results/test_batch_{}/'.format(batch)
 f1                  = os.path.join(ddata, 'bioasq7_bm25_top100.test.pkl')
 f2                  = os.path.join(ddata, 'bioasq7_bm25_docset_top100.test.pkl')
 # docs_retrieved_path = os.path.join(ddocs, 'bert-high-conf-0.01.json')
