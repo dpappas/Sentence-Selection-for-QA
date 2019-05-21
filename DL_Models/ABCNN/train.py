@@ -62,6 +62,9 @@ def train(lr, w, l2_reg, epoch, batch_size, model_type, num_layers, data_type, w
     with tf.Session() as sess:
         sess.run(init)    # initialize variables
         print("=" * 50)
+        print('Params:')
+        print(np.sum([np.prod(v.shape) for v in tf.trainable_variables()]))
+        print("=" * 50)
         # We start the loop for training, which is based on the number of epochs we entered as a parameter
         for e in range(1, epoch + 1):
             print("[Epoch " + str(e) + "]")

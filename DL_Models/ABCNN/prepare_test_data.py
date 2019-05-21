@@ -29,9 +29,9 @@ ddocs               = '/home/dpappas/bioasq_all/bioasq7/document_results/test_ba
 f1                  = os.path.join(ddata, 'bioasq7_bm25_top100.test.pkl')
 f2                  = os.path.join(ddata, 'bioasq7_bm25_docset_top100.test.pkl')
 # docs_retrieved_path = os.path.join(ddocs, 'bert-high-conf-0.01.json')
-# docs_retrieved_path = os.path.join(ddocs, 'bert.json')
+docs_retrieved_path = os.path.join(ddocs, 'bert.json')
 # docs_retrieved_path = os.path.join(ddocs, 'term-pacrr.json')
-docs_retrieved_path = os.path.join(ddocs, 'pdrmm.json')
+# docs_retrieved_path = os.path.join(ddocs, 'pdrmm.json')
 
 with open(f1, 'rb') as f:
     test_data = pickle.load(f)

@@ -189,6 +189,10 @@ cd ~/Sentence-Selection-for-QA/DL_Models/ABCNN/
 CUDA_VISIBLE_DEVICES=-1 python3.6 predictForTest.py dev  1 51
 CUDA_VISIBLE_DEVICES=-1 python3.6 predictForTest.py test 50 51
 # results are in dir : ./experiments/final_predictions_50.test.json
+
+cp /home/dpappas/Sentence-Selection-for-QA/DL_Models/ABCNN/experiments/final_predictions_50.test.json \
+/home/dpappas/bioasq_all/bioasq7/snippet_results/test_batch_3/bert_bcnn.json
+
 '''
 
 '''
