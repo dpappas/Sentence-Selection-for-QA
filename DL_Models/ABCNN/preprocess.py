@@ -201,7 +201,17 @@ class BioASQ(Data):
                             q_idfs.append(1)
                     unigram_overlap, bigram_overlap, idf_uni_overlap = self.compute_Overlaps(s1, s2, q_idfs)
                     word_cnt = len([word for word in s1 if (word not in stopwords) and (word in s2)])
-                    self.features.append([len(s1), len(s2), word_cnt, BM25score, unigram_overlap, bigram_overlap, idf_uni_overlap])
+                    self.features.append(
+                        [
+                            len(s1),
+                            len(s2),
+                            word_cnt,
+                            BM25score,
+                            unigram_overlap,
+                            bigram_overlap,
+                            idf_uni_overlap
+                        ]
+                    )
                     local_max_len = max(len(s1), len(s2))
                     if local_max_len > self.max_len:
                         self.max_len = local_max_len

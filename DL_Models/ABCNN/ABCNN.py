@@ -102,7 +102,7 @@ class ABCNN():
                 else:
                     pool_width = s + w - 1
                     d = di
-
+                #####
                 all_ap = tf.layers.average_pooling2d(
                     inputs=x,
                     # (pool_height, pool_width)
@@ -111,11 +111,10 @@ class ABCNN():
                     padding="VALID",
                     name="all_ap"
                 )
-
+                #####
                 all_ap_reshaped = tf.reshape(all_ap, [-1, d])
-
+                #####
                 return all_ap_reshaped
-
         # Create convolutional neural network layer
         def CNN_layer(variable_scope, x1, x2, d):
             with tf.variable_scope(variable_scope):
@@ -134,41 +133,41 @@ class ABCNN():
 
                         x1 = tf.concat([x1, x1_a], axis=3)
                         x2 = tf.concat([x2, x2_a], axis=3)
-
+                #####
                 left_conv = convolution(name_scope="left", x=pad_for_wide_conv(x1), d=d, reuse=False)
                 right_conv = convolution(name_scope="right", x=pad_for_wide_conv(x2), d=d, reuse=True)
-
+                #####
                 left_attention, right_attention = None, None
-
+                #####
                 if model_type == "ABCNN2" or model_type == "ABCNN3":
                     att_mat = make_attention_mat(left_conv, right_conv)
                     left_attention, right_attention = tf.reduce_sum(att_mat, axis=2), tf.reduce_sum(att_mat, axis=1)
-
+                #####
                 left_wp = w_pool(variable_scope="left", x=left_conv, attention=left_attention)
                 left_ap = all_pool(variable_scope="left", x=left_conv)
                 right_wp = w_pool(variable_scope="right", x=right_conv, attention=right_attention)
                 right_ap = all_pool(variable_scope="right", x=right_conv)
-
+                #####
                 return left_wp, left_ap, right_wp, right_ap
-
+        #####
         x1_expanded = tf.expand_dims(self.x1, -1)
         x2_expanded = tf.expand_dims(self.x2, -1)
-
+        #####
         LO_0 = all_pool(variable_scope="input-left", x=x1_expanded)
         RO_0 = all_pool(variable_scope="input-right", x=x2_expanded)
-
+        #####
         LI_1, LO_1, RI_1, RO_1 = CNN_layer(variable_scope="CNN-1", x1=x1_expanded, x2=x2_expanded, d=d0)
         sims = [cos_sim(LO_0, RO_0), cos_sim(LO_1, RO_1)]
-
+        #####
         if num_layers > 1:
             _, LO_2, _, RO_2 = CNN_layer(variable_scope="CNN-2", x1=LI_1, x2=RI_1, d=di)
             self.test = LO_2
             self.test2 = RO_2
             sims.append(cos_sim(LO_2, RO_2))
-
+        #####
         with tf.variable_scope("output-layer"):
             self.output_features = tf.concat([self.features, tf.stack(sims, axis=1)], axis=1, name="output_features")
-
+            #####
             self.estimation = tf.contrib.layers.fully_connected(
                 inputs=self.output_features,
                 num_outputs=num_classes,
@@ -178,17 +177,17 @@ class ABCNN():
                 biases_initializer=tf.constant_initializer(1e-04),
                 scope="FC"
             )
-
+        #####
         self.prediction = tf.contrib.layers.softmax(self.estimation)[:, 1]
-
+        #####
         self.cost = tf.add(
             tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=self.estimation, labels=self.y)),
             tf.reduce_sum(tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)),
             name="cost")
-
+        #####
         tf.summary.scalar("cost", self.cost)
         self.merged = tf.summary.merge_all()
-
+        #####
         print("=" * 50)
         print("List of Variables:")
         for v in tf.trainable_variables():
