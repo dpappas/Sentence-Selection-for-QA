@@ -77,12 +77,12 @@ def seperate_punctuation(dataset):
         for line in dset:
             try:
                 items = line[:-1].split("\t")
-
+                ###############
                 qid = items[0]
                 question = re.findall(r"[\w']+|[.,!?;']", items[1].lower())
                 answer = re.findall(r"[\w']+|[.,!?;']", items[2].lower())
                 label = int(items[3])
-
+                ###############
                 ids.append(qid)
                 questions.append(question)
                 answers.append(answer)
@@ -124,20 +124,21 @@ def clean_dataset(dataset):
 
 def improve_dataset(dataset):
     ids, questions_list, answers_list, labels = clean_dataset(dataset)
-    questions, answers = [], []
+    questions, answers  = [], []
     for question in questions_list:
-        question = " ".join(question)
+        question        = " ".join(question)
         questions.append(question)
     for answer in answers_list:
-        answer = " ".join(answer)
+        answer          = " ".join(answer)
         answers.append(answer)
-
     # We balance the dataset
     ids, questions, answers, labels = balance_dataset(ids, questions, answers, labels)
-
-    temp_set = open("Datasets/train.txt", 'w')
-    train_set = open("Datasets/train.txt", 'a')
+    temp_set    = open("Datasets/train.txt", 'w')
+    train_set   = open("Datasets/train.txt", 'a')
     for id, question, answer, label in zip(ids, questions, answers, labels):
         train_set.write(id + "\t" + question + "\t" +answer + "\t" + str(label) + "\n")
 
 improve_dataset("Datasets/train.txt")
+
+
+

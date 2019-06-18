@@ -77,6 +77,16 @@ def test(mode, w, l2_reg, max_len, model_type, num_layers, data_type, classifier
                 clf = joblib.load(clf_path)
                 print(clf_path, "restored.")
             ################################
+            total_parameters = 0
+            for variable in tf.trainable_variables():
+                # shape is an array of tf.Dimension
+                shape = variable.get_shape()
+                variable_parameters = 1
+                for dim in shape:
+                    variable_parameters *= dim.value
+                total_parameters += variable_parameters
+            print('total_parameters: {}'.format(total_parameters))
+            ################################
             QA_pairs = {}
             Bio_pairs = {}
             ################################
