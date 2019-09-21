@@ -83,7 +83,10 @@ scp \
 
 python3.6 \
 prepare_test_data.py 5 \
+bert.json
 
-
+python3.6 \
+prepare_test_data.py 5 \
+pdrmm.json
 
 '''
